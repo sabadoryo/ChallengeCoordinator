@@ -47,6 +47,15 @@ app.post('/game-was-opened', async (req, res) => {
     res.send('ACCEPTED');
 })
 
+app.post('/game-was-not-found', async (req, res) => {
+    await dayModel.upsertDay(getDay(), {
+        is_game_launched: false,
+        game_name: "",
+        
+    })
+    res.send('ACCEPTED');
+})
+
 app.post("/wake-up", async (req, res) => {
     let day = getDay() - 1;
 
