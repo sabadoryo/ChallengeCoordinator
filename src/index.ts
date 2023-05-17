@@ -5,7 +5,7 @@ import { getDay } from './helpers';
 import { initScheduledJobs } from './scheduler';
 
 const app = express();
-const port = 3000
+const port = 5000
 
 dotenv.config();
 
@@ -70,5 +70,5 @@ app.post("/sleep-down", async (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port ${process.env.PORT || port}`)
 })

@@ -7,7 +7,7 @@ import { off } from "process";
 const dayModel = new Day();
 
 export const initScheduledJobs = () => {
-  const scheduledJobFunction = CronJob.schedule("*/10 * * * * *", async () => {
+  const scheduledJobFunction = CronJob.schedule("0 0 23 * * *", async () => {
     const dayData = await dayModel.getDayByNumber(getDay());
     
     const header = `День ${getDay()}.\n`
@@ -15,7 +15,7 @@ export const initScheduledJobs = () => {
     let gameMessage = "";
 
     if (dayData?.is_game_launched) {
-      gameMessage = `🎮❌ Игра была запущена, название игры: ${dayData.game_name}. Тем не менее, игра была сразу выключена. Пруфы:`
+      gameMessage = `🎮❌ Игра была запущена, название игры: ${dayData.game_name}. Тем не менее, игра была сразу выключена, <a href="https://github.com/sabadoryo/isGameLaunchedDetector/blob/588496c0f0ccad5c28cfa54ce35d8e5a456d31fb/index.js#LL31C1-L32C1">пруфы.</a>`
     } else {
       gameMessage = "🎮✅ Игры не были запущены."
     }
@@ -54,9 +54,10 @@ export const initScheduledJobs = () => {
 
     const message = `${header}\n${gameMessage}\n${gymMessage}\n${officeMessage}\n${sleepMessage}\n${fapMessage}`;
 
-    console.log(message);
+    await bot.sendMessage("-1001800091038", message, {
+        parse_mode: "HTML"
+    });
 
-    // await bot.sendMessage("-1001800091038", message);
   });
 
   scheduledJobFunction.start();
