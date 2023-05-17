@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model Day {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  day Int @unique
+  created_at DateTime
+  is_game_launched Boolean @default(false)
+  game_name String?
+  is_gym_attended Boolean @default(false)
+  gym_attended_at DateTime?
+  gym_left_at DateTime?
+  is_office_attended Boolean @default(false)
+  office_attended_at DateTime?
+  office_left_at DateTime?
+  sleep_start DateTime?
+  sleep_end DateTime?
+}
