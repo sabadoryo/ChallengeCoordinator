@@ -16,7 +16,6 @@ const CHANNEL_ID = "-1001800091038";
 initScheduledJobs();
 
 app.get('/', (req, res) => {
-    console.log(req);
     res.send('CHALLENGER COORDINATOR')
 })
 
