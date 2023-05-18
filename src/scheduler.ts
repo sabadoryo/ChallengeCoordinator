@@ -7,7 +7,7 @@ import { off } from "process";
 const dayModel = new Day();
 
 export const initScheduledJobs = () => {
-  const scheduledJobFunction = CronJob.schedule("0 0 23 * * *", async () => {
+  const scheduledJobFunction = CronJob.schedule("0 0 17 * * *", async () => {
     const dayData = await dayModel.getDayByNumber(getDay());
     
     const header = `День ${getDay()}.\n`
@@ -50,9 +50,9 @@ export const initScheduledJobs = () => {
       sleepMessage = "💤❓ Нету данных."
     }
 
-    // let fapMessage = "💦🍆 Нету данных."
+    let fapMessage = "💦🍆 Нету данных."
 
-    const message = `${header}\n${gameMessage}\n${gymMessage}\n${officeMessage}\n${sleepMessage}\n`;
+    const message = `${header}\n${gameMessage}\n${gymMessage}\n${officeMessage}\n${sleepMessage}\n${fapMessage}`;
 
     console.log(message);
 
