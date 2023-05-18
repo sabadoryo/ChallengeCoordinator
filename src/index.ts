@@ -4,8 +4,6 @@ import Day from './day';
 import { getDay } from './helpers';
 import { initScheduledJobs } from './scheduler';
 
-process.env.TZ = 'Asia/Almaty';
-
 const app = express();
 const port = process.env.PORT ?? 5000
 
