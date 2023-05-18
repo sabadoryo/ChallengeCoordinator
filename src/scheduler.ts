@@ -56,7 +56,7 @@ export const initScheduledJobs = () => {
     console.log(message);
     // 424232165
     // -1001800091038
-    await bot.sendMessage("424232165", message, {
+    await bot.sendMessage("-1001800091038", message, {
         parse_mode: "HTML"
     });
 
