@@ -54,9 +54,11 @@ export const initScheduledJobs = () => {
 
     const message = `${header}\n${gameMessage}\n${gymMessage}\n${officeMessage}\n${sleepMessage}\n`;
 
-    await bot.sendMessage("-1001800091038", message, {
-        parse_mode: "HTML"
-    });
+    console.log(message);
+
+    // await bot.sendMessage("-1001800091038", message, {
+    //     parse_mode: "HTML"
+    // });
 
   });
 
