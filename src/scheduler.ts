@@ -50,9 +50,9 @@ export const initScheduledJobs = () => {
       sleepMessage = "💤❓ Нету данных."
     }
 
-    let fapMessage = "💦🍆 Нету данных."
+    // let fapMessage = "💦🍆 Нету данных."
 
-    const message = `${header}\n${gameMessage}\n${gymMessage}\n${officeMessage}\n${sleepMessage}\n${fapMessage}`;
+    const message = `${header}\n${gameMessage}\n${gymMessage}\n${officeMessage}\n${sleepMessage}\n`;
 
     await bot.sendMessage("-1001800091038", message, {
         parse_mode: "HTML"
