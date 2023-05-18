@@ -38,30 +38,44 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
+process.env.TZ = "Asia/Almaty";
 var express_1 = __importDefault(require("express"));
 var dotenv_1 = __importDefault(require("dotenv"));
 var day_1 = __importDefault(require("./day"));
+var helpers_1 = require("./helpers");
+var scheduler_1 = require("./scheduler");
 var app = (0, express_1.default)();
-var port = 3000;
+var port = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 5000;
 dotenv_1.default.config();
 var dayModel = new day_1.default();
-var START_DATE = new Date("05 18 2023");
+var CHANNEL_ID = "-1001800091038";
+(0, scheduler_1.initScheduledJobs)();
 app.get('/', function (req, res) {
     res.send('CHALLENGER COORDINATOR');
 });
 app.post('/gym-attended', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var curDate, diffTime, day;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                curDate = new Date();
-                diffTime = Math.abs(curDate.getMilliseconds() - START_DATE.getMilliseconds());
-                day = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return [4 /*yield*/, dayModel.upsertDay(day, {
-                        is_gym_attended: true,
-                        gym_attended_at: new Date(),
-                    })];
+            case 0: return [4 /*yield*/, dayModel.upsertDay((0, helpers_1.getDay)(), {
+                    is_gym_attended: true,
+                    gym_attended_at: new Date(),
+                })];
+            case 1:
+                _a.sent();
+                res.send('GYM ATTENDED');
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/gym-left', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, dayModel.upsertDay((0, helpers_1.getDay)(), {
+                    is_gym_attended: true,
+                    gym_left_at: new Date(),
+                })];
             case 1:
                 _a.sent();
                 res.send('GYM ATTENDED');
@@ -70,17 +84,26 @@ app.post('/gym-attended', function (req, res) { return __awaiter(void 0, void 0,
     });
 }); });
 app.post('/office-attended', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var curDate, diffTime, day;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                curDate = new Date();
-                diffTime = Math.abs(curDate.getMilliseconds() - START_DATE.getMilliseconds());
-                day = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return [4 /*yield*/, dayModel.upsertDay(day, {
-                        is_office_attended: true,
-                        office_attended_at: new Date(),
-                    })];
+            case 0: return [4 /*yield*/, dayModel.upsertDay((0, helpers_1.getDay)(), {
+                    is_office_attended: true,
+                    office_attended_at: new Date(),
+                })];
+            case 1:
+                _a.sent();
+                res.send('ACCEPTED');
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/office-left', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, dayModel.upsertDay((0, helpers_1.getDay)(), {
+                    is_office_attended: true,
+                    office_left_at: new Date(),
+                })];
             case 1:
                 _a.sent();
                 res.send('ACCEPTED');
@@ -89,17 +112,12 @@ app.post('/office-attended', function (req, res) { return __awaiter(void 0, void
     });
 }); });
 app.post('/game-was-opened', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var curDate, diffTime, day;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                curDate = new Date();
-                diffTime = Math.abs(curDate.getMilliseconds() - START_DATE.getMilliseconds());
-                day = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return [4 /*yield*/, dayModel.upsertDay(day, {
-                        is_office_attended: true,
-                        office_attended_at: new Date(),
-                    })];
+            case 0: return [4 /*yield*/, dayModel.upsertDay((0, helpers_1.getDay)(), {
+                    is_game_launched: true,
+                    game_name: req.query.game,
+                })];
             case 1:
                 _a.sent();
                 res.send('ACCEPTED');
@@ -107,14 +125,47 @@ app.post('/game-was-opened', function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
-app.post("/wake-up", function (req, res) {
-    console.log("WOKE UP");
-    res.send('ACCEPTED');
-});
-app.post("/sleep-down", function (req, res) {
-    console.log("SLEEP DOWN");
-    res.send('ACCEPTED');
-});
+app.post('/game-was-not-found', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, dayModel.upsertDay((0, helpers_1.getDay)(), {
+                    is_game_launched: false,
+                    game_name: "",
+                })];
+            case 1:
+                _a.sent();
+                res.send('ACCEPTED');
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.post("/wake-up", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, dayModel.upsertDay((0, helpers_1.getDay)(), {
+                    sleep_end: new Date(),
+                })];
+            case 1:
+                _a.sent();
+                res.send('ACCEPTED');
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.post("/sleep-down", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, dayModel.upsertDay((0, helpers_1.getDay)() + 1, {
+                    sleep_start: new Date(),
+                })];
+            case 1:
+                _a.sent();
+                res.send('ACCEPTED');
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.listen(port, function () {
-    console.log("Example app listening on port ".concat(port));
+    var _a;
+    console.log("Example app listening on port ".concat((_a = process.env.PORT) !== null && _a !== void 0 ? _a : port));
 });

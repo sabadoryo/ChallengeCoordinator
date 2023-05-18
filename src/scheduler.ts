@@ -2,12 +2,11 @@ import CronJob from "node-cron";
 import bot from "./bot";
 import Day from "./day";
 import { getDay } from "./helpers";
-import { off } from "process";
 
 const dayModel = new Day();
 
 export const initScheduledJobs = () => {
-  const scheduledJobFunction = CronJob.schedule("0 0 17 * * *", async () => {
+  const scheduledJobFunction = CronJob.schedule("*/10 0 23 * * *", async () => {
     const dayData = await dayModel.getDayByNumber(getDay());
     
     const header = `День ${getDay()}.\n`
@@ -55,8 +54,9 @@ export const initScheduledJobs = () => {
     const message = `${header}\n${gameMessage}\n${gymMessage}\n${officeMessage}\n${sleepMessage}\n${fapMessage}`;
 
     console.log(message);
-
-    await bot.sendMessage("-1001800091038", message, {
+    // 424232165
+    // -1001800091038
+    await bot.sendMessage("424232165", message, {
         parse_mode: "HTML"
     });
 
