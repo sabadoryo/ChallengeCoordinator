@@ -56,9 +56,9 @@ export const initScheduledJobs = () => {
 
     console.log(message);
 
-    // await bot.sendMessage("-1001800091038", message, {
-    //     parse_mode: "HTML"
-    // });
+    await bot.sendMessage("-1001800091038", message, {
+        parse_mode: "HTML"
+    });
 
   });
 

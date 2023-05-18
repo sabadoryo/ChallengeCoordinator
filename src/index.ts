@@ -34,7 +34,7 @@ app.post('/gym-attended', async (req, res) => {
 app.post('/gym-left', async (req, res) => {
     await dayModel.upsertDay(getDay(), {
         is_gym_attended: true,
-        gym_left_at: new Date().toString(),
+        gym_left_at: new Date(),
 
     })
 
