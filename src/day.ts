@@ -6,7 +6,7 @@ class Day {
     async upsertDay(day: number, update: Object) {
         return prisma.day.upsert({
             create: {
-                created_at: new Date(),
+                created_at: new Date().toString(),
                 day,
                 ...update
             },

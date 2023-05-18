@@ -48,7 +48,6 @@ dotenv_1.default.config();
 var dayModel = new day_1.default();
 var START_DATE = new Date("05 18 2023");
 app.get('/', function (req, res) {
-    console.log(req);
     res.send('CHALLENGER COORDINATOR');
 });
 app.post('/gym-attended', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {

@@ -1,3 +1,5 @@
+process.env.TZ = "Asia/Almaty"
+
 import express from 'express';
 import dotenv from 'dotenv';
 import Day from './day';
@@ -32,7 +34,7 @@ app.post('/gym-attended', async (req, res) => {
 app.post('/gym-left', async (req, res) => {
     await dayModel.upsertDay(getDay(), {
         is_gym_attended: true,
-        gym_left_at: new Date(),
+        gym_left_at: new Date().toString(),
 
     })
 
