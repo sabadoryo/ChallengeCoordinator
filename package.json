@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "npx nodemon",
     "build": "rimraf ./build && tsc && prisma generate",
-    "start": "node build/index.js"
+    "start": "env TZ='Asia/Almaty' node build/index.js"
   },
   "author": "",
   "license": "ISC",
