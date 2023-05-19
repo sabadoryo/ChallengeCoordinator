@@ -6,7 +6,7 @@ import { getDay } from "./helpers";
 const dayModel = new Day();
 
 export const initScheduledJobs = () => {
-  const scheduledJobFunction = CronJob.schedule("0 10 23 * * *", async () => {
+  const scheduledJobFunction = CronJob.schedule("0 50 22 * * *", async () => {
     const dayData = await dayModel.getDayByNumber(getDay());
     
     const header = `День ${getDay()}.\n`
@@ -38,7 +38,7 @@ export const initScheduledJobs = () => {
     let sleepMessage = "";
   
     if (dayData?.sleep_end && dayData.sleep_start) {
-      const hours = Math.ceil(Math.abs(dayData.sleep_end.getMilliseconds() - dayData.sleep_start.getMilliseconds()) / 36e5);
+      const hours = Math.ceil((dayData.sleep_end.valueOf() - dayData.sleep_start.valueOf()) / 36e5);
 
       if (hours === 8) {
         sleepMessage = `💤✅ Длительность сна идеальная: ${hours} часов`
@@ -61,6 +61,6 @@ export const initScheduledJobs = () => {
     });
 
   });
-
+  
   scheduledJobFunction.start();
 }
