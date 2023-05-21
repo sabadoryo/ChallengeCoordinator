@@ -6,7 +6,7 @@ import { getDay } from "./helpers";
 const dayModel = new Day();
 
 export const initScheduledJobs = () => {
-  const scheduledJobFunction = CronJob.schedule("0 50 22 * * *", async () => {
+  const scheduledJobFunction = CronJob.schedule("0 50 22 * * 1-5", async () => {
     const dayData = await dayModel.getDayByNumber(getDay());
     
     const header = `День ${getDay()}.\n`
