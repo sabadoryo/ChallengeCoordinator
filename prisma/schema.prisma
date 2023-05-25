@@ -25,4 +25,6 @@ model Day {
   office_left_at DateTime?
   sleep_start DateTime?
   sleep_end DateTime?
+  home_left_at DateTime?
+  home_returned_at DateTime?
 }

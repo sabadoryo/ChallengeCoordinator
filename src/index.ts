@@ -91,6 +91,18 @@ app.post("/sleep-down", async (req, res) => {
     res.send('ACCEPTED');
 })
 
+app.post("/home-left", async (req, res) => {
+    await dayModel.upsertDay(getDay(), {
+        home_left_at: new Date()
+    })
+})
+
+app.post("/home-returned-at", async (req, res) => {
+    await dayModel.upsertDay(getDay(), {
+        home_returned_at: new Date()
+    })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${process.env.PORT ?? port}`)
 })
